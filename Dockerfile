@@ -3,6 +3,19 @@ MAINTAINER Getty Images "https://github.com/gettyimages"
 
 RUN apt-get update \
  && apt-get install -y locales \
+    curl unzip \
+    python3 python3-setuptools \
+ && ln -s /usr/bin/python3 /usr/bin/python \
+ && easy_install3 pip py4j \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+# Installar librerías de Spark usando pip
+RUN pip install pyspark findspark # Agrega aquí las librerías que necesites
+
+
+RUN apt-get update \
+ && apt-get install -y locales \
  && dpkg-reconfigure -f noninteractive locales \
  && locale-gen C.UTF-8 \
  && /usr/sbin/update-locale LANG=C.UTF-8 \
